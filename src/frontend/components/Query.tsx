@@ -31,7 +31,7 @@ export const Query = ({ selectedTable }: QueryProps) => {
                 <TextField.Root 
                     style={{ flex: 1 }} 
                     size="3" 
-                    placeholder="Type something..." 
+                    placeholder="Ask me anything about the data..." 
                     value={query} 
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyPress}
