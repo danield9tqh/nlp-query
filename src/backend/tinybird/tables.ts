@@ -77,7 +77,7 @@ export const usGovernmentSpending: Table = {
 };
 
 export const getTables = () => {
-    return [usGovernmentSpending, legoSets];
+    return [legoSets,usGovernmentSpending];
 }
 
 export const getTableByName = (name: string) => {
