@@ -9,9 +9,7 @@ const server = serve({
   async fetch(req) {
     return api.fetch(req);
   },
-  development: true,
+  development: process.env.NODE_ENV !== "production",
 });
 
 console.log(`Listening on ${server.url}`);
-
-
