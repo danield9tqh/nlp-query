@@ -44,7 +44,7 @@ export const legoSets: Table = {
 export const usGovernmentSpending: Table = {
     name: "GovernmentOutlayAgency",
     readableName: "US Government Outlays by Agency",
-    description: "US Government Outlays by Agency",
+    description: "Provides data of the US Government's spending by agency",
     columns: [
         { name: "record_date", type: "date" },
         { name: "parent_id", type: "string" },
