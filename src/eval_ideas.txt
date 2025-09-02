@@ -1,0 +1,1 @@
+- Check if query is going to return a ton of results or be expensive
