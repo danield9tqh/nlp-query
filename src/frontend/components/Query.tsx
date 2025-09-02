@@ -4,13 +4,17 @@ import { useState } from "react";
 import { useQuery } from "../hooks/useQuery";
 import { TinyBirdTable } from "./TinyBirdTable";
 
-export const Query = () => {
+interface QueryProps {
+    selectedTable: string;
+}
+
+export const Query = ({ selectedTable }: QueryProps) => {
     const [query, setQuery] = useState("");
     const { result, loading, error, handleQuery } = useQuery();
 
     const handleSubmit = () => {
-        if (!loading && query.trim()) {
-            handleQuery(query);
+        if (!loading && query.trim() && selectedTable) {
+            handleQuery(query, selectedTable);
         }
     };
 
@@ -22,27 +26,28 @@ export const Query = () => {
 
     return (
         <Flex direction="column" align="center" justify="center" gap="3" style={{ width: "100%" }}>
-            <Flex align="center" justify="center" gap="3" style={{ width: "100%" }}>
-            <TextField.Root 
-                style={{ flex: 1 }} 
-                size="3" 
-                placeholder="Type something..." 
-                value={query} 
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyPress}
-                disabled={loading}
-            />
-            <Button 
-                size="3" 
-                onClick={handleSubmit}
-                disabled={loading}
-            >
-                {loading ? (
-                    <Spinner size="2" />
-                ) : (
-                    <RocketIcon />
-                )}
-            </Button>
+            {/* Query input */}
+            <Flex align="center" gap="3" style={{ width: "100%" }}>
+                <TextField.Root 
+                    style={{ flex: 1 }} 
+                    size="3" 
+                    placeholder="Type something..." 
+                    value={query} 
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    disabled={loading}
+                />
+                <Button 
+                    size="3" 
+                    onClick={handleSubmit}
+                    disabled={loading || !selectedTable}
+                >
+                    {loading ? (
+                        <Spinner size="2" />
+                    ) : (
+                        <RocketIcon />
+                    )}
+                </Button>
             </Flex>
             {error && <Text color="red">Error: {error}</Text>}
             {result && result.sql && (

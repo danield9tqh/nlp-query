@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { queryTinyBird, type TinyBirdResponse } from "./tinybird/tinybird";
-import { legoSets } from "./tinybird/tables";
+import { getTableByName, getTables, type Table } from "./tinybird/tables";
 import * as OpenAI from "./openAi";
 
 const api = new Hono().basePath("/api");
@@ -17,8 +17,18 @@ export type QueryResponse = {
 api.post("/query", async (c) => {
     const body = await c.req.json();
     const query = body.query;
+    const tableName = body.table;
 
-    const { sql, error } = await OpenAI.naturalLanguageToSql(legoSets, query);
+    const table = getTableByName(tableName);
+
+    if (!table) {
+        return c.json({
+            status: "error",
+            error: "Invalid table"
+        }, 400);
+    }
+
+    const { sql, error } = await OpenAI.naturalLanguageToSql(table, query);
 
     if (error || !sql) {
         return c.json({
@@ -42,6 +52,18 @@ api.post("/query", async (c) => {
         status: "ok",
         sql,
         result,
+    });
+});
+
+export type TablesResponse = {
+    status: 'ok' | 'error';
+    tables: Table[];
+};
+
+api.get("/tables", async (c) => {
+    return c.json({
+        status: "ok",
+        tables: getTables(),
     });
 });
 

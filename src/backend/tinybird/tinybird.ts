@@ -48,34 +48,3 @@ export async function queryTinyBird(sql: string): Promise<{result?: TinyBirdResp
         return { error: error instanceof Error ? error.message : "Failed to query TinyBird" };
     }
 }
-
-export const legoSets: Table = {
-    name: "lego_sets",
-    columns: [
-        { name: "_set_id", type: "string" },
-        { name: "name", type: "string" },
-        { name: "year", type: "int32" },
-        { name: "theme", type: "string" },
-        { name: "subtheme", type: "nullable(string)" },
-        { name: "themegroup", type: "string" },
-        { name: "category", type: "string" },
-        { name: "pieces", type: "nullable(int32)" },
-        { name: "minifigs", type: "nullable(string)" },
-        { name: "agerange_min", type: "nullable(string)" },
-        { name: "us_retailprice", type: "nullable(string)" },
-        { name: "brickseturl", type: "string" },
-        { name: "thumbnailurl", type: "nullable(string)" },
-        { name: "imageurl", type: "nullable(string)" }
-    ],
-};
-
-export type Table = {
-    name: string;
-    columns: Column[];
-}
-export type Column = {
-    name: string;
-    type: ColumnType;
-}
-
-export type ColumnType = "int32" | "string" | "nullable(string)" | "nullable(int32)";

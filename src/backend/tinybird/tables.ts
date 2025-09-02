@@ -1,5 +1,6 @@
 export type Table = {
     name: string;
+    readableName: string;
     description: string;
     columns: Column[];
 }
@@ -20,6 +21,7 @@ export const describeTable = (table: Table) => {
 
 export const legoSets: Table = {
     name: "lego_sets",
+    readableName: "Lego Sets",
     description: "All of the LEGO sets released by LEGO",
     columns: [
         { name: "_set_id", type: "string" },
@@ -40,8 +42,9 @@ export const legoSets: Table = {
 };
 
 export const usGovernmentSpending: Table = {
-    name: "us_government_spending",
-    description: "US Government Spending",
+    name: "GovernmentOutlayAgency",
+    readableName: "US Government Outlays by Agency",
+    description: "US Government Outlays by Agency",
     columns: [
         { name: "record_date", type: "date" },
         { name: "parent_id", type: "string" },
@@ -73,3 +76,14 @@ export const usGovernmentSpending: Table = {
     ],
 };
 
+export const getTables = () => {
+    return [usGovernmentSpending, legoSets];
+}
+
+export const getTableByName = (name: string) => {
+    if (name === usGovernmentSpending.name) {
+        return usGovernmentSpending;
+    } else if (name === legoSets.name) {
+        return legoSets;
+    }
+}

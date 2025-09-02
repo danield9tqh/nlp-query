@@ -6,13 +6,16 @@ export const useQuery = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const handleQuery = (query: string) => {
+    const handleQuery = (query: string, table: string) => {
         setLoading(true);
         setError("");
         setResult(null);
         fetch("/api/query", {
             method: "POST",
-            body: JSON.stringify({ query }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query, table }),
         }).then(res => res.json()).then((data: QueryResponse) => {
             if (data.status === "error") {
                 setError(data.error || "Failed to query");
