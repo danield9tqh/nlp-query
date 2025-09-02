@@ -85,7 +85,8 @@ export const generateCfg = (table: Table) => {
         number: /[0-9]+/
         string: "'" /[^']*/ "'"
         group_by: " GROUP BY " column_name ("," column_name)*
-        order: " ORDER BY " column_name (" ASC" | " DESC")?
+        order: " ORDER BY " orderby_item (" ASC" | " DESC")?
+        orderby_item: column_name | aggregate_function
         limit: " LIMIT " number
     `;
 

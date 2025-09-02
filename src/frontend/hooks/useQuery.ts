@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { QueryResponse } from "../../routes";
+import type { QueryResponse } from "../../backend";
 
 export const useQuery = () => {
     const [result, setResult] = useState<QueryResponse | null>(null);
@@ -13,9 +13,12 @@ export const useQuery = () => {
         fetch("/api/query", {
             method: "POST",
             body: JSON.stringify({ query }),
-        }).then(res => res.json()).then(data => {
-            console.log(data);
-            setResult(data);
+        }).then(res => res.json()).then((data: QueryResponse) => {
+            if (data.status === "error") {
+                setError(data.error || "Failed to query");
+            } else {
+                setResult(data);
+            }
             setLoading(false);
         }).catch(err => {
             setError(err.message);

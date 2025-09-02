@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { queryTinyBird, type TinyBirdResponse } from "./tinybird/tinybird";
-import { legoSets, type Table } from "./tinybird/tables";
+import { legoSets } from "./tinybird/tables";
 import * as OpenAI from "./openAi";
 
 const api = new Hono().basePath("/api");

@@ -1,6 +1,6 @@
 import { serve } from "bun";
-import homepage from "./index.html";
-import api from "./routes";
+import homepage from "./frontend/index.html";
+import api from "./backend";
 
 const server = serve({
   routes: {
