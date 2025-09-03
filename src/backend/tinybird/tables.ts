@@ -11,7 +11,7 @@ export type Column = {
     nullable?: boolean;
 }
 
-export type ColumnType = "int16" | "int32" | "int64" | "string" | "date"
+export type ColumnType = "int16" | "int32" | "int64" | "string" | "date" | "boolean"
 
 export const describeTable = (table: Table) => {
     return `This table name is "${table.name}" and contains "${table.description}".
