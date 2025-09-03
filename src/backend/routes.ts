@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { queryTinyBird, type TinyBirdResponse } from "./tinybird/tinybird";
 import { getTableByName, getTables, type Table } from "./tinybird/tables";
 import * as OpenAI from "./openAi";
+import { testCases, runTestCase, testCaseToOutput } from "../evals/tests";
 
 const api = new Hono().basePath("/api");
 
@@ -31,6 +32,7 @@ api.post("/query", async (c) => {
     const { sql, error } = await OpenAI.naturalLanguageToSql(table, query);
 
     if (error || !sql) {
+        console.error(`Failed to generate SQL: ${error}, Query: ${query}, Table: ${tableName}`);
         return c.json({
             status: "error",
             sql,
@@ -41,6 +43,7 @@ api.post("/query", async (c) => {
     const {result, error: queryError} = await queryTinyBird(sql);
 
     if (queryError || !result) {
+        console.error(`Failed to query TinyBird: ${queryError}, SQL: ${sql}, Query: ${query}, Table: ${tableName}`);
         return c.json({
             status: "error",
             sql,
@@ -48,6 +51,7 @@ api.post("/query", async (c) => {
         }, 500);
     }
 
+    console.log(`Successfully returned: Query: ${query}, Table: ${tableName}, SQL: ${sql}`);
     return c.json({
         status: "ok",
         sql,
@@ -64,6 +68,31 @@ api.get("/tables", async (c) => {
     return c.json({
         status: "ok",
         tables: getTables(),
+    });
+});
+
+export type EvalResponse = {
+    status: "ok" | "error";
+    evalOutput: string[];
+}
+
+api.post("/eval", async (c) => {
+    const body = await c.req.json();
+    const number = body.testNumber;
+
+    const testCase = testCases[number];
+    if (!testCase) {
+        return c.json({
+            status: "error",
+            error: "Invalid test number"
+        }, 400);
+    }
+
+    const evalOutput = await runTestCase(testCase);
+    const output = testCaseToOutput(evalOutput);
+    return c.json({
+        status: "ok",
+        evalOutput: output,
     });
 });
 

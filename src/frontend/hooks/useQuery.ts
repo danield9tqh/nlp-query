@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { QueryResponse } from "../../backend";
+import type { QueryResponse } from "../../backend/routes";
 
 export const useQuery = () => {
     const [result, setResult] = useState<QueryResponse | null>(null);

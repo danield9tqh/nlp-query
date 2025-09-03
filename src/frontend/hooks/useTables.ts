@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { TablesResponse } from '../../backend';
+import type { TablesResponse } from '../../backend/routes';
 import type { Table } from '../../backend/tinybird/tables';
 
 export const useTables = () => {
