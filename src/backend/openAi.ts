@@ -100,7 +100,7 @@ export const generateCfg = (table: Table) => {
         condition_and: condition_primary (" AND " condition_primary)*
         condition_primary: condition | "(" condition_or ")"
         condition: numeric_condition | string_condition | date_condition | boolean_condition
-        numeric_condition: numeric_column " " numeric_operator " " number
+        numeric_condition: numeric_column " " numeric_operator " " NUMBER
         string_condition: string_column " " string_operator " " string
         date_condition: date_column " " date_operator " " date_value
         boolean_condition: boolean_column " " boolean_operator " " boolean_value
@@ -108,14 +108,15 @@ export const generateCfg = (table: Table) => {
         string_operator: "=" | "!=" | "LIKE"
         date_operator: "=" | ">" | "<" | ">=" | "<=" | "!="
         boolean_operator: "=" | "!="
-        number: /[0-9]+(\.[0-9]+)?/
         string: "'" /[^']*/ "'"
         date_value: "'" /[0-9]{4}-[0-9]{2}-[0-9]{2}/ "'"
         boolean_value: "true" | "false"
         group_by: " GROUP BY " column_name ("," column_name)*
         order: " ORDER BY " orderby_item (" ASC" | " DESC")?
         orderby_item: column_name | aggregate_function
-        limit: " LIMIT " number
+        limit: " LIMIT " NUMBER
+        
+        %import common.NUMBER
     `;
 
     return sqlGrammar;

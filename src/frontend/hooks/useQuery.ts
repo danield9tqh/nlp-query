@@ -19,9 +19,8 @@ export const useQuery = () => {
         }).then(res => res.json()).then((data: QueryResponse) => {
             if (data.status === "error") {
                 setError(data.error || "Failed to query");
-            } else {
-                setResult(data);
             }
+            setResult(data);
             setLoading(false);
         }).catch(err => {
             setError(err.message);
