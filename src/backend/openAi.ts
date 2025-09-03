@@ -95,7 +95,10 @@ export const generateCfg = (table: Table) => {
         date_column: ${dateColumnNames}
         boolean_column: ${booleanColumnNames}
         table: "${table.name}"
-        filter: " WHERE " condition
+        filter: " WHERE " condition_or
+        condition_or: condition_and (" OR " condition_and)*
+        condition_and: condition_primary (" AND " condition_primary)*
+        condition_primary: condition | "(" condition_or ")"
         condition: numeric_condition | string_condition | date_condition | boolean_condition
         numeric_condition: numeric_column " " numeric_operator " " number
         string_condition: string_column " " string_operator " " string

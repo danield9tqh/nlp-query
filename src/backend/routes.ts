@@ -73,6 +73,7 @@ api.get("/tables", async (c) => {
 
 export type EvalResponse = {
     status: "ok" | "error";
+    error?: string;
     evalOutput: string[];
 }
 

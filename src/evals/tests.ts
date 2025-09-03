@@ -28,11 +28,11 @@ export const testCases = [
         table: legoSets,
     },
     {
-        userQuery: "How many total pieces are there in sets released from 1970-1980",
+        userQuery: "How many total pieces are there in sets released 70s",
         table: legoSets,
     },
     {
-        userQuery: "Give me all the sets that are",
+        userQuery: "Show me the top 10 most expensive LEGO sets that have more than 1000 pieces and related to Christmas",
         table: legoSets,
     },
 ];
