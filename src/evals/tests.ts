@@ -24,15 +24,15 @@ export interface TestCaseResult {
 
 export const testCases = [
     {
-        userQuery: "How many sets are there in each themegroup?",
-        table: legoSets,
-    },
-    {
         userQuery: "How many total pieces are there in sets released 70s",
         table: legoSets,
     },
     {
         userQuery: "Show me the top 10 most expensive LEGO sets that have more than 1000 pieces and related to Christmas",
+        table: legoSets,
+    },
+    {
+        userQuery: "what is the subtheme with the most sets in each decade?",
         table: legoSets,
     },
 ];

@@ -16,5 +16,7 @@ This repo [defines 3 evals](./src/evals/framework.ts)
 2. SQL Correctness: Checks for syntax errors in the generated SQL (maybe could have been done without LLM help)
 3. SQL Field Correctness: Checks for fields that are used incorrectly e.g. numeric field used in a LIKE statement
 
+Known Errors: The third eval is diffuclt for the model to get. "what is the subtheme with the most sets in each decade?". This query demonstrates the current limit of the system and would probably need more SQL functions (like FLOOR or some way to aggregate decades). There are probably many other additions that could be made to the CFG but just adding this test case as an example of missing features and how the eval handles them.
+
 ### Learnings on GPT-5 CFG
 Compiled some [learnings](./GPT-5-CFGs.md) on the CFG api
