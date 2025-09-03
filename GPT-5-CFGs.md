@@ -2,4 +2,4 @@
 Statements like `SELECT COUNT(*) as count` are tricky. They are possible but only if we choose to allow arbitrary identifiers in other parts of the query. Describing the table and columns would probably be sufficient for an LLM to not make any mistakes on writing identifiers but if you really cared 'correct' SQL you could limit identifiers to just column names and not support renaming with 'AS'
 
 ### Performance
-Calls using the CFG are consistently slow. Not sure if it is the cause or not but should do some more testing
+Calls using the CFG are consistently slow. Not sure if it is the cause or not but should do some more testing. From observiation (no hard evidence) it seems like the further away the LLM's first choice of answer is to something that conforms to the grammar. E.g. the LLM would want to do a complex query using SQL functions that the grammar doesn't support but it's forced to fall back on something supported at multiple steps
