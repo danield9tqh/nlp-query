@@ -17,8 +17,6 @@ export interface TinyBirdResponse {
 }
 
 export async function queryTinyBird(sql: string): Promise<{result?: TinyBirdResponse, error?: string}> {
-    console.log("Executing SQL:", sql);
-    
     // Ensure the query ends with FORMAT JSON
     const sqlWithFormat = sql.trim().toUpperCase().endsWith('FORMAT JSON') 
         ? sql 
